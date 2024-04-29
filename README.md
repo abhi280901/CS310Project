@@ -3,10 +3,12 @@
 Welcome to the project. This document will explain each subfolder within this project folder. This file is an extension of the final project.pdf. Knowledge on models there is assumed when elaborating here.
 
 1. Game
-* This folder contains the CardClash.zip file which contains the playable game and a READMEGame.md file. Please do read the READMEGame.md file before attempting to play the game as it extensively details the steps to play the game. The game is only playable on macOS, and the file aslo details steps to install the game. This game is developed purely as an experimental platform to showcase the power of the AI which represents the bulf of the project.
+* This folder contains the CardClash.zip file which contains the playable game and a READMEGame.md file. Please do read the READMEGame.md file before attempting to play the game as it extensively details the steps to install the necessary software needed for the game for both, Windows and Mac users. It also explains the rules of the game, and things not to do. This game is developed purely as an experimental platform to showcase the power of the AI which represents the bulk of the project.
 
 2. AIModelsAndTraining
-* This folder contains all the finalized models used to generate the data for the cards which is used in the game. It also contains code for the training process of each model. Here, we will breakdown each model and some key functions used within each file. 
+* This folder contains all the finalized models used to generate the data for the cards which is used in the game. This folder is an exact copy of the actual AI models folder that is used in game. This copy is placed here to improve readability for assessors.
+* It also contains code for the training process of each model. It also contains the datasets and pre-trained embeddings files used for training the model, located under the /data directory within this directory. The /Parameters directory contains the learned weights for each of the neural networks. Please do not modify or change any contents within any of this two directories, as the models won't run without them.
+* There is a section below that details each file and key functions used within each file.
 
 ## Pre requisites
 * Python 3.10
@@ -16,8 +18,6 @@ Initially, ensure appropriate executable permissions are available for the follo
 - build.sh (for Mac users)
 - build.ps1 (for Windows users)
 - mynltk.py
-- tor.sh (for Mac users)
-- tor.ps1 (for Windows users)
 
 Before running any of the files, make sure to run either the :
 
@@ -25,11 +25,20 @@ Before running any of the files, make sure to run either the :
 if you're using a Mac, or the :
 
     ./build.ps1 
-if you're using Windows. These scripts will install all the modules you need to run the files. If there are any errors, use pip and install the following modules:
+if you're using Windows. These scripts will install all the modules you need to run the files. 
+
+**Optional**: If there are any errors, use pip and install the following modules:
 - torch
 - numpy
 - pandas
-- nltk (after installing nltk, run the file mynltk.py using "python mynltk.py" in the terminal.)
+- nltk
+    - after installing nltk, run the file mynltk.py using
+      
+              python mynltk.py
+      for Windows users or:
+
+              python3 mynltk.py
+      for Mac users.
 - itertools
 - utils
 - openpyxl
@@ -37,20 +46,12 @@ if you're using Windows. These scripts will install all the modules you need to 
 ## Running the code
 After that, running one of the following commands would run the generative AI model (a forward pass):
 ### Mac Users
-    ./tor.sh
-or
 
     python3 main.py
 You would then be able to see the generated output on the terminal. 
-
-    python3 [filename].py
-
 ### Windows Users (on Powershell terminal)
-    ./tor.ps1
-or
 
-    python main.py
-    
+    python main.py    
 You would then be able to see the generated output on the terminal. 
 
 As for running the **training data**, comment and uncomment sections within the code as necessary, i.e., either comparison or performance training, and run:
