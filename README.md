@@ -3,10 +3,10 @@
 Welcome to the project. This document will explain each subfolder within this project folder. This file is an extension of the final project.pdf. Knowledge on models there is assumed when elaborating here.
 
 1. Game
-* This folder contains the CardClash.zip file which contains the playable game and a READMEGame.md file. Please do read the READMEGame.md file before attempting to play the game as it extensively details the steps to install the necessary software needed for the game for both, Windows and Mac users. It also explains the rules of the game, and things not to do. This game is developed purely as an experimental platform to showcase the power of the AI which represents the bulk of the project.
+* This folder contains the CardClashMac.zip, CardClashWin.zip files for Mac and Windows users respectively. Additioonally, it consists of the and a READMEGame.md file. The .zip files contain the playable game. Please do read the READMEGame.md file before attempting to play the game or extract the .zip files as it extensively details the steps to install the necessary software needed for the game for both, Windows and Mac users. It also explains the rules of the game, and things not to do. This game is developed purely as an experimental platform to showcase the power of the AI which represents the bulk of the project.
 
 2. AIModelsAndTraining
-* This folder contains all the finalized models used to generate the data for the cards which is used in the game. This folder is an exact copy of the actual AI models folder that is used in game. This copy is placed here to improve readability for assessors.
+* This folder contains all the finalized models used to generate the data for the cards which is used in the game. This folder is an exact copy of the actual AI models folder that is used in game. This copy is placed here to ease readability for assessors.
 * It also contains code for the training process of each model. It also contains the datasets and pre-trained embeddings files used for training the model, located under the /data directory within this directory. The /Parameters directory contains the learned weights for each of the neural networks. Please do not modify or change any contents within any of this two directories, as the models won't run without them.
 * There is a section below that details each file and key functions used within each file.
 
