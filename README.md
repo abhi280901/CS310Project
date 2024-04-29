@@ -3,10 +3,10 @@
 Welcome to the project. This document will explain each subfolder within this project folder. This file is an extension of the final project.pdf. Knowledge on models there is assumed when elaborating here.
 
 1. Game
-This folder contains the CardClash.zip file which contains the playable game and a READMEGame.md file. Please do read the READMEGame.md file before attempting to play the game as it extensively details the steps to play the game. The game is only playable on macOS, and the file aslo details steps to install the game. This game is developed purely as an experimental platform to showcase the power of the AI which represents the bulf of the project.
+* This folder contains the CardClash.zip file which contains the playable game and a READMEGame.md file. Please do read the READMEGame.md file before attempting to play the game as it extensively details the steps to play the game. The game is only playable on macOS, and the file aslo details steps to install the game. This game is developed purely as an experimental platform to showcase the power of the AI which represents the bulf of the project.
 
 2. AIModelsAndTraining
-This folder contains all the finalized models used to generate the data for the cards which is used in the game. It also contains code for the training process of each model. Here, we will breakdown each model and some key functions used within each file. 
+* This folder contains all the finalized models used to generate the data for the cards which is used in the game. It also contains code for the training process of each model. Here, we will breakdown each model and some key functions used within each file. 
 
 ## Pre requisites
 * Python 3.10
@@ -18,7 +18,6 @@ Initially, ensure appropriate executable permissions are available for the follo
 - mynltk.py
 - tor.sh (for Mac users)
 - tor.ps1 (for Windows users)
-- main.py
 
 Before running any of the files, make sure to run either the :
 
