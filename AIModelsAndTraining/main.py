@@ -81,10 +81,6 @@ def create_training_data():
         i=i+1
     # Print an training data example
     x_example, y_example = X_train[0], y_train[0]
-    #print(X_train)
-    #print("x:\n%s\n%s" % (" ".join([index_to_word[x] for x in x_example]), x_example))
-    #print("\ny:\n", y_example)
-
     return X_train,y_train,word_to_index,index_to_word
 
 def load_glove_embeddings(file_path):

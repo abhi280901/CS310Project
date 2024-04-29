@@ -6,7 +6,7 @@ import torch
 import numpy as np
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
-import desc_classifier as Classifier
+import desc_classifier as dc
 import torch.nn as nn
 
 VOCABULARY_SIZE = 991
@@ -25,9 +25,7 @@ power_scale = df[["power_scale"]]
 
 
 # Append SENTENCE_START and SENTENCE_END
-sentences = ["%s %s %s" % (SENTENCE_START_TOKEN, y.iloc(0).lower(), SENTENCE_END_TOKEN) for x,y in desc.iterrows()]
-
-#print(sentences)
+sentences = ["%s %s %s" % (SENTENCE_START_TOKEN, y.iloc[0].lower(), SENTENCE_END_TOKEN) for x,y in desc.iterrows()]
 
 # Tokenize the sentences into words
 tokenized_sentences = [nltk.word_tokenize(sent) for sent in sentences]
@@ -77,6 +75,7 @@ x_example, y_example = X_train[0], y_train[0]
 #print(X_train)
 print("x:\n%s\n%s" % (" ".join([index_to_word[x] for x in x_example]), x_example))
 print("\ny:\n", y_example)
+print("\n")
 
 
 
@@ -108,13 +107,13 @@ glove_embeddings = load_glove_embeddings(GLOVE_FILE)
 embedding_matrix = create_embedding_matrix(word_to_index, glove_embeddings, EMBEDDING_DIM)
 embedding_matrix = torch.Tensor(embedding_matrix)
 
-model = Classifier(991)
+model = dc.Classifier(991,embedding_matrix)
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
 
 num_epochs = 10
-arr = np.ones((10,5))
-arr[0:10,0] = np.arange(1,11)
+arr = np.ones((num_epochs,5))
+arr[0:num_epochs,0] = np.arange(1,num_epochs+1)
 for epoch in range(num_epochs):
         model.train()
         total_loss = 0
@@ -187,12 +186,13 @@ for epoch in range(num_epochs):
 
 fig, (ax1, ax2) = plt.subplots(2)
 fig.suptitle('Loss and Accuracy plots')
-ax1.plot(arr[0:20,0],arr[0:20,1],label="Training Loss")
-ax1.plot(arr[0:20,0],arr[0:20,3],label="Evaluation Loss")
+ax1.plot(arr[0:num_epochs,0],arr[0:num_epochs,1],label="Training Loss")
+ax1.plot(arr[0:num_epochs,0],arr[0:num_epochs,3],label="Evaluation Loss")
 ax1.set(xlabel='Epochs', ylabel='Loss')
 ax1.label_outer()
 ax1.legend()
-ax2.plot(arr[0:20,0],arr[0:20,2],label="Training Accuracy")
-ax2.plot(arr[0:20,0],arr[0:20,4],label="Evaluation Accuracy")
+ax2.plot(arr[0:num_epochs,0],arr[0:num_epochs,2],label="Training Accuracy")
+ax2.plot(arr[0:num_epochs,0],arr[0:num_epochs,4],label="Evaluation Accuracy")
 ax2.set(xlabel='Epochs', ylabel='Accuracy')
 ax2.legend()
+plt.show()

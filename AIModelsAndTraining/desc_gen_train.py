@@ -23,7 +23,7 @@ desc = df[["skill_text"]]
 
 
 # Append SENTENCE_START and SENTENCE_END
-sentences = ["%s %s %s" % (SENTENCE_START_TOKEN, y.iloc(0).lower(), SENTENCE_END_TOKEN) for x,y in desc.iterrows()]
+sentences = ["%s %s %s" % (SENTENCE_START_TOKEN, y.iloc[0].lower(), SENTENCE_END_TOKEN) for x,y in desc.iterrows()]
 
 # Tokenize the sentences into words
 tokenized_sentences = [nltk.word_tokenize(sent) for sent in sentences]
@@ -56,9 +56,10 @@ y_train = [torch.IntTensor([word_to_index[w] for w in sent[1:]]) for sent in tok
 # Print an training data example
 x_example, y_example = X_train[100], y_train[100]
 print("x:\n%s\n%s" % (" ".join([index_to_word[x] for x in x_example]), x_example))
-print("\ny:\n%s\n%s" % (" ".join([index_to_word[x] for x in y_example]), y_example))
+print("\ny:\n%s\n%s\n" % (" ".join([index_to_word[x] for x in y_example]), y_example))
 
-# Embedding code. Comment out to use embedding. Additionally set emb parameter within the Generator class below to embedding matrix.
+# Embedding code. Comment out to use embedding. 
+# Additionally set emb parameter within the Generator class below to embedding matrix.
 '''
 GLOVE_FILE = "data/glove.6B.50d.txt"
 EMBEDDING_DIM = 50
@@ -90,9 +91,7 @@ embedding_matrix = torch.Tensor(embedding_matrix)
 print(embedding_matrix.shape)
 '''
 
-import time
-import operator
-import torch.nn as nn
+# Generator class
 
 class Generator(nn.Module):
     def __init__(self, word_dim,num_layers, hidden_dim=512, embedding_dim=200,emb = None):
@@ -127,93 +126,29 @@ model = Generator(991,2)
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
 
+# PURE PERFORMANCE TRAINING
+# Training loop showcasing the true potential of the model. Model is not reinitialized and trained over 20 epochs.
+# The training performance of the model is used for mapping the model's pure performance over 20 epochs. 
 
 # COMPARISON TRAINING
 # Training loop for k=4 folds cross validation, for 10 epochs per fold. The model is reinitialized after every fold.
-# The training performance of the model is used for comparison amongst its variations and other models.
-num_epochs = 10
-arr = np.ones((40,5))
-arr[0:40,0] = np.arange(1,41)
-k = 4
-kf = KFold(n_splits=k, shuffle=True)
+# The training performance of the model is used for comparison amongst its variations and other models. Uncomment to use.
 
-for fold, (train_indices, val_indices) in enumerate(kf.split(X_train)):
-    model = Generator(991,1)
-    criterion = nn.CrossEntropyLoss()
-    optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
-    X_train_subset = [X_train[ind] for ind in train_indices]
-    X_test_subset = [X_train[ind] for ind in val_indices]
-    y_train_subset = [y_train[ind] for ind in train_indices]
-    y_test_subset = [y_train[ind] for ind in val_indices]
-    for epoch in range(num_epochs):
-        model.train()
-        total_loss = 0
-        total_correct = 0
-        total_preds = 0
-        
-        for i in range(len(X_train_subset)):
-            # Forward pass
-            inputs = X_train_subset[i]
-            targets = y_train_subset[i]
-            output = model.forward(inputs)
-            predictions = model.predict(output)
-            targets = targets.type(torch.LongTensor)
-            # Calculate the loss
-            loss = criterion(output, targets)
-            total_preds += len(X_train_subset[i])
-            # Backward pass
-            optimizer.zero_grad()
-            loss.backward()
-            optimizer.step()
-    
-            total_loss += loss.item()
-            total_correct += (predictions == targets).sum().item()
-            if epoch > 0:
-                if (total_loss / (len(X_train))) > los:
-                    for g in optimizer.param_groups:
-                        g['lr'] = g['lr']*0.5
-                        
-                        
-        accuracy = total_correct / total_preds
-        los = total_loss / (len(X_train_subset))
-        # Evaluation phase on the test set
-        model.eval()
-        test_total_loss = 0
-        test_total_correct = 0
-        test_total_preds = 0
-        with torch.no_grad():  # Disable gradient computation for evaluation
-            for i in range(len(X_test_subset)):
-                inputs = X_test_subset[i]
-                targets = y_test_subset[i]
-                output = model.forward(inputs)
-                predictions = model.predict(output)
-                targets = targets.type(torch.LongTensor)
-                loss = criterion(output, targets)
-                test_total_preds += len(X_test_subset[i])
-                test_total_loss += loss.item()
-                test_total_correct += (predictions == targets).sum().item()
-    
-        # Compute test accuracy
-        test_accuracy = test_total_correct / test_total_preds
-        test_loss = test_total_loss / len(X_test_subset)
-        print(f'Epoch {epoch + 1}/{num_epochs}, Loss: {los}, Accuracy: {accuracy}, Test Loss: {test_loss}, Test Accuracy: {test_accuracy}')
-        
-        arr[epoch + (5*fold),1] = total_loss / (len(X_train_subset))
-        arr[epoch + (5*fold),2] = accuracy
-        arr[epoch + (5*fold),3] = test_loss
-        arr[epoch + (5*fold),4] = test_accuracy
+# Uncomment lines 150-152 to change from performance to comparison.
 
-# PURE PERFORMANCE TRAINING
-# Training loop showcasing the true potential of the model. Model is not reinitialized and trained over 20 epochs.
-# The training performance of the model is used for mapping the model's pure performnce over 20 epochs. Uncomment to use.
-'''
+# change num of epochs and folds appropriately
 num_epochs = 5
-arr = np.ones((20,5))
-arr[0:20,0] = np.arange(1,21)
 k = 4
+runs = num_epochs*k
+arr = np.ones((runs,5))
+arr[0:runs,0] = np.arange(1,runs + 1)
+
 kf = KFold(n_splits=k, shuffle=True)
 
 for fold, (train_indices, val_indices) in enumerate(kf.split(X_train)):
+    #model = Generator(991,2)
+    #criterion = nn.CrossEntropyLoss()
+    #optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
     X_train_subset = [X_train[ind] for ind in train_indices]
     X_test_subset = [X_train[ind] for ind in val_indices]
     y_train_subset = [y_train[ind] for ind in train_indices]
@@ -225,16 +160,16 @@ for fold, (train_indices, val_indices) in enumerate(kf.split(X_train)):
         total_preds = 0
         
         for i in range(len(X_train_subset)):
-            # Forward pass
+            # forward pass
             inputs = X_train_subset[i]
             targets = y_train_subset[i]
             output = model.forward(inputs)
             predictions = model.predict(output)
             targets = targets.type(torch.LongTensor)
-            # Calculate the loss
+            # calculate loss
             loss = criterion(output, targets)
             total_preds += len(X_train_subset[i])
-            # Backward pass
+            # backward pass
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
@@ -249,12 +184,12 @@ for fold, (train_indices, val_indices) in enumerate(kf.split(X_train)):
                         
         accuracy = total_correct / total_preds
         los = total_loss / (len(X_train_subset))
-        # Evaluation phase on the test set
+        # evaluation phase on the test set
         model.eval()
         test_total_loss = 0
         test_total_correct = 0
         test_total_preds = 0
-        with torch.no_grad():  # Disable gradient computation for evaluation
+        with torch.no_grad():  # disable gradient computation for evaluation
             for i in range(len(X_test_subset)):
                 inputs = X_test_subset[i]
                 targets = y_test_subset[i]
@@ -266,25 +201,26 @@ for fold, (train_indices, val_indices) in enumerate(kf.split(X_train)):
                 test_total_loss += loss.item()
                 test_total_correct += (predictions == targets).sum().item()
     
-        # Compute test accuracy
+        # compute test accuracy
         test_accuracy = test_total_correct / test_total_preds
         test_loss = test_total_loss / len(X_test_subset)
         print(f'Epoch {epoch + 1}/{num_epochs}, Loss: {los}, Accuracy: {accuracy}, Test Loss: {test_loss}, Test Accuracy: {test_accuracy}')
         
-        arr[epoch + (5*fold),1] = total_loss / (len(X_train_subset))
-        arr[epoch + (5*fold),2] = accuracy
-        arr[epoch + (5*fold),3] = test_loss
-        arr[epoch + (5*fold),4] = test_accuracy
-'''
+        arr[epoch + (num_epochs*fold),1] = total_loss / (len(X_train_subset))
+        arr[epoch + (num_epochs*fold),2] = accuracy
+        arr[epoch + (num_epochs*fold),3] = test_loss
+        arr[epoch + (num_epochs*fold),4] = test_accuracy
+
 # Plot performance, typically used after pure performance training.
 fig, (ax1, ax2) = plt.subplots(2)
 fig.suptitle('Loss and Accuracy plots')
-ax1.plot(arr[0:20,0],arr[0:20,1],label="Training Loss")
-ax1.plot(arr[0:20,0],arr[0:20,3],label="Evaluation Loss")
+ax1.plot(arr[0:runs,0],arr[0:runs,1],label="Training Loss")
+ax1.plot(arr[0:runs,0],arr[0:runs,3],label="Evaluation Loss")
 ax1.set(xlabel='Epochs', ylabel='Loss')
 ax1.label_outer()
 ax1.legend()
-ax2.plot(arr[0:20,0],arr[0:20,2],label="Training Accuracy")
-ax2.plot(arr[0:20,0],arr[0:20,4],label="Evaluation Accuracy")
+ax2.plot(arr[0:runs,0],arr[0:runs,2],label="Training Accuracy")
+ax2.plot(arr[0:runs,0],arr[0:runs,4],label="Evaluation Accuracy")
 ax2.set(xlabel='Epochs', ylabel='Accuracy')
 ax2.legend()
+plt.show()

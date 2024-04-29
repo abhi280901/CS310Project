@@ -9,7 +9,7 @@ df = pd.read_excel(DATAFILE)
 df = df.reset_index(drop=True)
 power_cost_hp = df[["skill_damage","skill_cost","hp"]]
 scale = df["power_scale"]
-print("Done reading.")
+print("Done reading.\n")
 
 
 indices = np.where(scale == 0)[0]
@@ -37,6 +37,7 @@ covariance_matrix_0 = np.cov(centered_data, rowvar=False)
 
 print("Covariance Matrix 0:")
 print(covariance_matrix_0)
+print("\n")
 
 
 data_1 = ps1
@@ -52,6 +53,7 @@ covariance_matrix_1 = np.cov(centered_data, rowvar=False)
 
 print("Covariance Matrix 1:")
 print(covariance_matrix_1)
+print("\n")
 
 
 data_2 = ps2
@@ -67,6 +69,7 @@ covariance_matrix_2 = np.cov(centered_data, rowvar=False)
 
 print("Covariance Matrix 2:")
 print(covariance_matrix_2)
+print("\n")
 
 
 
@@ -83,6 +86,7 @@ covariance_matrix_neg1 = np.cov(centered_data, rowvar=False)
 
 print("Covariance Matrix -1:")
 print(covariance_matrix_neg1)
+print("\n")
 
 
 
@@ -99,4 +103,5 @@ covariance_matrix_neg2 = np.cov(centered_data, rowvar=False)
 
 print("Covariance Matrix -2:")
 print(covariance_matrix_neg2)
+print("\n")
 
