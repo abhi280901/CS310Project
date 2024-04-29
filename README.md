@@ -65,7 +65,7 @@ As for running the **training data**, comment and uncomment sections within the 
     python [filename].py
 
 ## Files
-* desc_generator.py
+* *desc_generator.py*:
 This file contains the finalized model class (as discussed in the final report) for the description generator.
 The key functions :
   - generate_sent(self,word,max_len) generates a sentence for a given max_len, starting from word.
