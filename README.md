@@ -3,7 +3,9 @@
 Welcome to the project. This document will explain each subfolder within this project folder. This file is an extension of the final project.pdf. Knowledge on models there is assumed when elaborating here.
 
 1. Game
-* This folder contains the CardClashMac.zip, CardClashWin.zip files for Mac and Windows users respectively. Additioonally, it consists of the and a READMEGame.md file. The .zip files contain the playable game. Please do read the READMEGame.md file before attempting to play the game or extract the .zip files as it extensively details the steps to install the necessary software needed for the game for both, Windows and Mac users. It also explains the rules of the game, and things not to do. This game is developed purely as an experimental platform to showcase the power of the AI which represents the bulk of the project.
+* This folder contains the CardClashMac.zip, CardClashWin.zip files for Mac and Windows users respectively. Additioonally, it consists of the and a READMEGame.md file. The .zip files contain the playable game.
+* Please do read the READMEGame.md file before attempting to play the game or extract the .zip files as it extensively details the steps to install the necessary software needed for the game for both, Windows and Mac users. It also explains the rules of the game, and things not to do.
+* This game is developed purely as an experimental platform to showcase the power of the AI which represents the bulk of the project.
 
 2. AIModelsAndTraining
 * This folder contains all the finalized models used to generate the data for the cards which is used in the game. This folder is an exact copy of the actual AI models folder that is used in game. This copy is placed here to ease readability for assessors.
