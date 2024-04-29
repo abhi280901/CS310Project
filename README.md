@@ -9,6 +9,7 @@ Welcome to the project. This document will explain each subfolder within this pr
 
 2. AIModelsAndTraining
 * This folder contains all the finalized models used to generate the data for the cards which is used in the game. This folder is an exact copy of the actual AI models folder that is used in game. This copy is placed here to ease readability for assessors.
+* If for any reason the actual AI folder needs to be accessed, once the game is extracted (refer READMEGame.md), simply open CardClashWin/AI/ or CardClashMac/AI/.
 * It also contains code for the training process of each model. It also contains the datasets and pre-trained embeddings files used for training the model, located under the /data directory within this directory. The /Parameters directory contains the learned weights for each of the neural networks. Please do not modify or change any contents within any of this two directories, as the models won't run without them.
 * There is a section below that details each file and key functions used within each file.
 
@@ -94,12 +95,12 @@ The key functions :
                     
   - sample(ps) creates a mean and covariance matrix before creating a multinomial gaussian distribution. It then samples from the distribution, rounds the values and returns the integer attributes.
 
-* main.py
+* main.py: 
 The main file which contains the flow of execution of initializing one model and piping its output into another. At the end,
 all outputs are printed onto the stdout which is then used by the game.
 
-* tor.sh
-The bash script that is ran from the game which runs main.py. The output on the stdout is then used in game.
+* tor.sh: 
+The bash script that is ran from the game which runs main.py. The output on the stdout is then used in game. This file is not included in this copy folder but exists in the actual AI folder.
 
 * desc_gen_train.py
 This file contains the training code used to train the description generator, oulined in desc_generator.py. The training has two main parts. One is the comparison training, and the other is pure performance training. 
@@ -120,3 +121,6 @@ This file contains the training code used to train the card name generator, outl
 
 * attr_gen_train.py
 This file contaions the training code for the integer attribute generator, outlined in attribute_generator.py. This tarining extracts each power scale as a multinomial gaussian distribution (MGD). It first prepares a DataFrame for each power scale, the proceeds to create the mean and covariance matrices for each dataset. It then computes the MGD and returns the mean and covariance matrices. The model is trained well if the mean vector appropriately shows a relationship between the power scales.
+
+* build.sh/build.ps1
+  Installs the necessary Python modules to run the AI. 
