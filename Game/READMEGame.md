@@ -44,6 +44,7 @@ missing for the AI to work:
 5. Finally, run the following command to launch the game. All commands before this need only be run once. After playing and closing the window, they just have to open the terminal and run the following command to start the game again. Before running the command, ensure the terminal current directory is CardClashWin:
 
        godot
+6. To test the game, simply click on the red card at the bottom left corner of the window, cards will be generated. The generation is random between an energy card (orange) and an attack card (dark purple). The card with the attributes generated from the AI is the attack card. Once an attack card pops up, you can view the numerical attributes as detailed in the final report. As for the description, hovering over the card will show the description on the yellow box to the right.
 
 
 ## Game Rules
