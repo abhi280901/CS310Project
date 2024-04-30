@@ -27,6 +27,7 @@ Before running any of the files, make sure to run either the :
     ./build.sh 
 if you're using a Mac, or the :
 
+    Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
     ./build.ps1 
 if you're using Windows. These scripts will install all the modules you need to run the files. 
 
