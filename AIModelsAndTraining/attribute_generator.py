@@ -25,11 +25,11 @@ def read(data):
 
 def sample(ps):
     data = ps
-    # Step 2: Calculate Mean Vector
+    # calculating mean vector
     mean_vector = np.mean(data, axis=0)
-    # Step 3: Center the Data
+    # centering data 
     centered_data = data - mean_vector
-    # Step 4: Compute Covariance Matrix
+    # covariance matrix computation
     covariance_matrix = np.cov(centered_data, rowvar=False)
     sample = np.random.multivariate_normal(mean_vector.to_numpy(),covariance_matrix,1)
     # sample = [[Att, Cost, HP]]

@@ -76,6 +76,7 @@ optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
 # Uncomment lines 87-89 to change from performance to comparison.
 
 # change num of epochs and folds appropriately
+#model.load_state_dict(torch.load('Parameters/names_card_gru_relu.txt'))
 num_epochs = 10
 k = 4
 runs = num_epochs*k
@@ -149,6 +150,7 @@ for fold, (train_indices, val_indices) in enumerate(kf.split(X_train)):
         arr[epoch + (num_epochs*fold),2] = accuracy
         arr[epoch + (num_epochs*fold),3] = test_loss
         arr[epoch + (num_epochs*fold),4] = test_accuracy
+#torch.save(model.state_dict(), 'Parameters/names_card_gru_relu.txt')
 
 # Plot performance, typically used after pure performance training.
 fig, (ax1, ax2) = plt.subplots(2)

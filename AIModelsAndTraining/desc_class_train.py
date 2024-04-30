@@ -111,6 +111,7 @@ model = dc.Classifier(991,embedding_matrix)
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
 
+#model.load_state_dict(torch.load('Parameters/1st_try_2hl_relu.txt'))
 num_epochs = 10
 arr = np.ones((num_epochs,5))
 arr[0:num_epochs,0] = np.arange(1,num_epochs+1)
@@ -181,7 +182,7 @@ for epoch in range(num_epochs):
         arr[epoch,2] = accuracy
         arr[epoch,3] = test_loss
         arr[epoch,4] = test_accuracy
-
+#torch.save(model.state_dict(), 'Parameters/1st_try_2hl_relu.txt')
         
 
 fig, (ax1, ax2) = plt.subplots(2)

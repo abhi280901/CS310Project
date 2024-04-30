@@ -30,22 +30,17 @@ def create_training_data():
     desc = df[["skill_text"]]
     power_scale = df[["power_scale"]]
 
-    #print(desc)
-    #print(power_scale)
 
 
     # Append SENTENCE_START and SENTENCE_END
     sentences = ["%s %s %s" % (SENTENCE_START_TOKEN, y.iloc[0].lower(), SENTENCE_END_TOKEN) for x,y in desc.iterrows()]
 
-    #print(sentences)
 
     # Tokenize the sentences into words
     tokenized_sentences = [nltk.word_tokenize(sent) for sent in sentences]
-    #print("Parsed %d sentences." % (len(tokenized_sentences)))
 
     # Count the word frequencies
     word_freq = nltk.FreqDist(itertools.chain(*tokenized_sentences))
-    #print("Found %d unique words tokens." % len(word_freq.items()))
 
 
     # Get the most common words and build index_to_word and word_to_index vectors
@@ -54,15 +49,10 @@ def create_training_data():
     index_to_word.append(UNKNOWN_TOKEN)
     word_to_index = dict([(w,i) for i,w in enumerate(index_to_word)])
 
-    #print("Using vocabulary size %d." % VOCABULARY_SIZE)
-    #print("The least frequent word in our vocabulary is '%s' and appeared %d times." % (vocab[-1][0], vocab[-1][1]))
-
     # Replace all words not in our vocabulary with the unknown token
     for i, sent in enumerate(tokenized_sentences):
         tokenized_sentences[i] = [w if w in word_to_index else UNKNOWN_TOKEN for w in sent]
 
-    #print("\nExample sentence: '%s'" % sentences[0])
-    #print("\nExample sentence after Pre-processing: '%s'" % tokenized_sentences[0])
     # Create the training data
     X_train = [torch.IntTensor([word_to_index[w] for w in sent[:-1]]) for sent in tokenized_sentences]
     i = 0
