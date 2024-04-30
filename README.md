@@ -3,7 +3,7 @@
 Welcome to the project. This document will explain each subfolder within this project folder. This file is an extension of the final project.pdf. Knowledge on models there is assumed when elaborating here.
 
 1. Game
-* This folder contains the CardClashMac.zip, CardClashWin.zip files for Mac and Windows users respectively. Additioonally, it consists of the and a READMEGame.md file. The .zip files contain the playable game.
+* This folder contains the CardClashMac.zip, CardClashWin.zip files for Mac and Windows users respectively. Additionally, it consists of the and a READMEGame.md file. The .zip files contain the playable game.
 * Please do read the READMEGame.md file before attempting to play the game or extract the .zip files as it extensively details the steps to install the necessary software needed for the game for both, Windows and Mac users. It also explains the rules of the game, and things not to do.
 * This game is developed purely as an experimental platform to showcase the power of the AI which represents the bulk of the project.
 
