@@ -74,53 +74,59 @@ The key functions :
                     
   - predict(self,o) takes in the probabilites from forward() and returns the three most probable words to follow the word,x.
 
-* desc_classifier.py
+* *desc_classifier.py*:
 This file contains the finalized model class (as discussed in the final report) for the description classifier.
 The key functions :
   - forward(self, x) starts a forward pass through the neural network with the input sentence. and activates one of the 5 neuron outputs representing a power scale.
                     
   - give_scale(self,x) takes in the output from forward() and returns the classified scale of the sentence.
 
-* skill_text_generator.py
+* *skill_text_generator.py*:
 This file contains the finalized model class (as discussed in the final report) for the card name generator.
 The key functions :
   - forward(self, x) starts a forward pass through the neural network and outputs a vector of probabilities of words to follow x.
                     
   - predict(self,o) takes in the probabilites from forward() and returns the most probable word to follow the word,x.
 
-* attribute_generator.py
+* *attribute_generator.py*:
 This file contains the finalized model class (as discussed in the final report) for the integer attributes generator.
 The key functions :
   - read(data) reads from the datafile and categorizes each power scale into a pandas dataframe.
                     
   - sample(ps) creates a mean and covariance matrix before creating a multinomial gaussian distribution. It then samples from the distribution, rounds the values and returns the integer attributes.
 
-* main.py: 
+* *main.py*: 
 The main file which contains the flow of execution of initializing one model and piping its output into another. At the end,
 all outputs are printed onto the stdout which is then used by the game.
 
-* tor.sh: 
+* *tor.sh*: 
 The bash script that is ran from the game which runs main.py. The output on the stdout is then used in game. This file is not included in this copy folder but exists in the actual AI folder.
 
-* desc_gen_train.py
+* *desc_gen_train.py*
 This file contains the training code used to train the description generator, oulined in desc_generator.py. The training has two main parts. One is the comparison training, and the other is pure performance training. 
 
   Comparison training : The model is reinitialised on every fold of the training where the model's performance is reviewed at the end of every fold. The final epoch's performance   over each fold is then averaged. Different models and variations were trained this way to extract the performance of each model for comparison purposes.
 
   Pure performance training: Each model here is trained over 20 epochs with no reinitialisation. This is to highlight the actual potential of the model for a longer training        period, and highlight shortcomings within the model in of itself.
 
-* desc_class_train.py
+* *desc_class_train.py*
 This file contains the training code used to train the description classifier, outlined in desc_classifier.py. Unlike previously, this training only constists of the pure performance training as the only model used showed outstanding results. It also includes a pre-trained embedding matrix initialisation which is used in the neural network training.
 
-* cardname-gen_train.py
+* *cardname-gen_train.py*
 This file contains the training code used to train the card name generator, outlined in skill_text_generator.py. The training has two main parts. One is the comparison training, and the other is pure performance training. 
 
   Comparison training : The model is reinitialised on every fold of the training where the model's performance is reviewed at the end of every fold. The final epoch's performance over each fold is then averaged. Different models and variations were trained this way to extract the performance of each model for comparison purposes.
 
   Pure performance training: Each model here is trained over 20 epochs with no reinitialisation. This is to highlight the actual potential of the model for a longer training period, and highlight shortcomings within the model in of itself.
 
-* attr_gen_train.py
+* *attr_gen_train.py*
 This file contaions the training code for the integer attribute generator, outlined in attribute_generator.py. This tarining extracts each power scale as a multinomial gaussian distribution (MGD). It first prepares a DataFrame for each power scale, the proceeds to create the mean and covariance matrices for each dataset. It then computes the MGD and returns the mean and covariance matrices. The model is trained well if the mean vector appropriately shows a relationship between the power scales.
 
-* build.sh/build.ps1
-  Installs the necessary Python modules to run the AI. 
+* *build.sh/build.ps1*
+  Installs the necessary Python modules to run the AI.
+
+## Directories
+* *data/*: Contains:
+    *  the pre-trained GloVe embedding file (glove.6B.50d.txt)
+    *  (pokes_newest.xlsx) which is the full dataset consisting of card/skill names, cost, damage, hp description and the power scale of 8831 Pokemon cards. This dataset is used to train the mechanics generation parts. (description generator, description classifier, integer attributes generator)
+    *  (skill_name.xlsx) which specifically contains only the card names. This dataset is used to train the context generation part. (card name generator)
