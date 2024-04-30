@@ -130,3 +130,4 @@ This file contaions the training code for the integer attribute generator, outli
     *  the pre-trained GloVe embedding file (glove.6B.50d.txt)
     *  (pokes_newest.xlsx) which is the full dataset consisting of card/skill names, cost, damage, hp description and the power scale of 8831 Pokemon cards. This dataset is used to train the mechanics generation parts. (description generator, description classifier, integer attributes generator)
     *  (skill_name.xlsx) which specifically contains only the card names. This dataset is used to train the context generation part. (card name generator)
+* *Parameters/*: This directory contains the parameters learned through training for each model.
