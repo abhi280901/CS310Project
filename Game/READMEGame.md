@@ -29,8 +29,9 @@ missing for the AI to work:
 7. Finally, run the following command to launch the game. All commands before this need only be run once. After playing and closing the window, they just have to open the terminal and run the following command to start the game again.Before running the command, ensure the terminal current directory is CardClashMac:
 
        godot
+8. To test the game, simply click on the red card at the bottom left corner of the window, cards will be generated. The generation is random between an energy card (orange) and an attack card (dark purple). The card with the attributes generated from the AI is the attack card. Once an attack card pops up, you can view the numerical attributes as detailed in the final report. As for the description, hovering over the card will show the description on the yellow box to the right.
 
-* Note for mac users: If the game runs, but generated attack cards appear empty (no name, description or any integer attributes), move the backup_data.csv file to CardClashMac/AI/data/. The game should work now.
+* Note for mac users: If the game runs, but the generated attack cards appear empty (no name, description or any integer attributes), move the backup_data.csv file to CardClashMac/AI/data/. The game should work now.
 
 ### Windows
 1. Install scoop if not already installed. Refer to the following website for commands to install: https://scoop.sh
